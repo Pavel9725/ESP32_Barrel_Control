@@ -1,33 +1,34 @@
 #include "Motor.h"
+#include "config.h"
 
 
-Motor::Motor(int pin1, int pin2)
+Motor::Motor(int servoPin)
 {
-    _pin1 = pin1;
-    _pin2 = pin2;
+    _servoPin = servoPin;
 }
 
 void Motor::init()
 {
-    pinMode(_pin1, OUTPUT);
-    pinMode(_pin2, OUTPUT);
-    stop();
+    _myServo.attach(_servoPin);
+    _myServo.write(SERVO_ANGLE_CLOSE);
+    delay(500);
+    _myServo.detach();
+    
 }
 
 void Motor::open()
 {
-    digitalWrite(_pin1, LOW);
-    digitalWrite(_pin2, HIGH);
+    _myServo.attach(_servoPin);
+    _myServo.write(SERVO_ANGLE_OPEN);
 }
 
 void Motor::close()
 {
-    digitalWrite(_pin1, HIGH);
-    digitalWrite(_pin2, LOW);
+    _myServo.attach(_servoPin);
+    _myServo.write(SERVO_ANGLE_CLOSE);
 }
 
 void Motor::stop()
 {
-    digitalWrite(_pin1, LOW);
-    digitalWrite(_pin2, LOW);
+    _myServo.detach();
 }

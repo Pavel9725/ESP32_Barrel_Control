@@ -9,6 +9,7 @@ enum State {
     STATE_IDLE,                     //Waiting for start
     STATE_OPENING,                  //Opening valve
     STATE_OPEN,                     //Valve is open
+    STATE_WATER_CONFIRM,            //Confirm water
     STATE_CLOSING,                  //Closing valve
     STATE_CLOSE,                    //Valve is closed
     STATE_ERROR                     //Error
@@ -18,9 +19,12 @@ class Automation {
 private:
     Motor& _motor;
     Sensors& _sensors;
+
     State _currentState;
     String _statusMsg;
     unsigned long _motorStartTime;
+    unsigned long _waterConfirmTime;
+
     void updateIndicators();
 public:
     Automation(Motor& motor, Sensors& sensors);
