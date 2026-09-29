@@ -1,26 +1,59 @@
 #pragma once
 
-// SETTING FOR WI-FI ANF NTP SERVER CONFIGURATION
-#define WIFI_SSID ""
-#define WIFI_PASSWORD ""
-#define NTP_SERVER "pool.ntp.org"
-#define TIME_ZONE "NOVT-7" // UTC +7
+// ============================================================
+//  CONFIG — Water Barrel Auto v1.0
+//  ESP8266 NodeMCU V3
+// ============================================================
 
+// ------------------------------------------------------------
+//  Wi-Fi и NTP
+// ------------------------------------------------------------
+#define WIFI_SSID               ""              
+#define WIFI_PASSWORD           ""              
+#define NTP_SERVER              "pool.ntp.org"
+#define TIME_ZONE               "NOVT-7"        // UTC+7
 
-// SETTINGS FOR SERVO CONTROL
-#define SERVO_PIN               5        //Servo pin
-#define PIN_LED_STATUS_OK       4        //LED STATUS OK
-#define PIN_LED_STATUS_ERROR    0        //LED STATUS ERROR
+// ------------------------------------------------------------
+//  Концевики (NO, второй контакт на GND)
+// ------------------------------------------------------------
+#define PIN_LIMIT_OPEN          12              // D6 — INPUT_PULLUP
+#define PIN_LIMIT_CLOSE         16              // D0 — INPUT + внешний 10к к 3.3В
 
-//SETTINGS FOR SENSORS
-#define PIN_SENSOR_WATER  14                 //Sensor water level HOFER
-#define PIN_BTN_START     12                 //Button start
+// ------------------------------------------------------------
+//  Сервопривод
+// ------------------------------------------------------------
+#define SERVO_PIN               5               // D1 — сигнал
+#define SERVO_ANGLE_OPEN        90              // угол открытого крана
+#define SERVO_ANGLE_CLOSE       0               // угол закрытого крана
+#define MOTOR_MAX_TIME_MS       1500            // аварийный таймаут хода (мс)
 
+// ------------------------------------------------------------
+//  LED (общий катод, HIGH = горит)
+// ------------------------------------------------------------
+#define PIN_LED_STATUS_OK       2               // D4 — зелёный
+#define PIN_LED_STATUS_ERROR    4               // D2 — красный
 
-//SECURITY SETTINGS
-#define SERVO_ANGLE_OPEN  90                 //Angle for open
-#define SERVO_ANGLE_CLOSE 0                  //Angle for close
-#define MOTOR_MOVE_TIME_MS   1500            //time 2s for move tap
-#define MAX_LOG_RECORDS     50              //history sms
+// ------------------------------------------------------------
+//  Датчики
+// ------------------------------------------------------------
+#define PIN_SENSOR_WATER        13              // D7 — INPUT_PULLUP (размыкается при воде)
+#define PIN_BTN_START           14              // D5 — INPUT_PULLUP
 
-#define WATER_CONFIRM_MS        10000        //time 10s for confirm water
+// ------------------------------------------------------------
+//  Батарея 18650 (через делитель 100к/100к)
+// ------------------------------------------------------------
+#define PIN_BATTERY_VOLTAGE     A0
+#define BATTERY_R1              100000.0        // верхнее плечо делителя
+#define BATTERY_R2              100000.0        // нижнее плечо делителя
+#define BATTERY_V_EMPTY         3.4             // порог «пусто», В
+#define BATTERY_V_FULL          4.2             // порог «полно», В
+
+// ------------------------------------------------------------
+//  Логика и тайминги
+// ------------------------------------------------------------
+#define WATER_CONFIRM_MS        10000           // антидребезг воды (мс)
+
+// ------------------------------------------------------------
+//  Логи
+// ------------------------------------------------------------
+#define MAX_LOG_RECORDS         50              // размер буфера событий

@@ -1,33 +1,35 @@
 #include "Motor.h"
 #include "config.h"
 
-
-Motor::Motor(int servoPin)
+// ------------------------------------------------------------
+//  Constructor
+// ------------------------------------------------------------
+Motor::Motor(uint8_t pinServo)
 {
-    _servoPin = servoPin;
+    _pinServo = pinServo;
 }
 
-void Motor::init()
-{
-    _myServo.attach(_servoPin);
-    _myServo.write(SERVO_ANGLE_CLOSE);
-    delay(500);
-    _myServo.detach();
-    
-}
-
+// ------------------------------------------------------------
+//  Open valve
+// ------------------------------------------------------------
 void Motor::open()
 {
-    _myServo.attach(_servoPin);
+    _myServo.attach(_pinServo);
     _myServo.write(SERVO_ANGLE_OPEN);
 }
 
+// ------------------------------------------------------------
+//  Close valve
+// ------------------------------------------------------------
 void Motor::close()
 {
-    _myServo.attach(_servoPin);
+    _myServo.attach(_pinServo);
     _myServo.write(SERVO_ANGLE_CLOSE);
 }
 
+// ------------------------------------------------------------
+//  Detach servo (cut power, no holding torque)
+// ------------------------------------------------------------
 void Motor::stop()
 {
     _myServo.detach();
